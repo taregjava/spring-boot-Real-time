@@ -8,9 +8,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
-
-    @Mapping(target = "customerName", expression = "java(order.getCustomer() != null ? order.getCustomer().getName() : null)")
+    @Mapping(source = "customer.name", target = "customerName")
     OrderDto toDto(Order order);
 
+  /*  @Mapping(target = "customerName", expression = "java(order.getCustomer() != null ? order.getCustomer().getName() : null)")
+    OrderDto toDto(Order order);*/
     List<OrderDto> toDtoList(List<Order> orders);
 }
