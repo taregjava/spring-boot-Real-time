@@ -1,0 +1,54 @@
+{
+  "event" : "uploadTempFiles",
+  "userId" : "1234",
+  "path" : "/api/upload-temp",
+  "timestamp" : "2025-06-24T20:45:07.839394600",
+  "details" : "Method uploadTempFiles called",
+  "requestPayload" : [ {
+    "size" : 336253,
+    "fileName" : "Tareg_Safi_Resume (2).pdf",
+    "contentType" : "application/pdf"
+  } ],
+  "responsePayload" : {
+    "headers" : { },
+    "body" : "Files stored temporarily in Redis.",
+    "statusCode" : "OK",
+    "statusCodeValue" : 200
+  }
+}
+
+{
+  "event" : "submitFinalRequest",
+  "userId" : "unknown",
+  "path" : "/api/submit",
+  "timestamp" : "2025-06-24T20:47:22.700694200",
+  "details" : "Method submitFinalRequest called",
+  "requestPayload" : {
+    "userId" : "1234",
+    "name" : "Tareg Mada",
+    "email" : "tareg@example.com",
+    "passportNumber" : "P987654321",
+    "dateOfBirth" : "1995-08-15"
+  },
+  "responsePayload" : {
+    "headers" : { },
+    "body" : "Files and user info saved to local folder.",
+    "statusCode" : "OK",
+    "statusCodeValue" : 200
+  }
+}
+
+{
+  "event" : "checkRedisKey",
+  "userId" : "1234",
+  "path" : "/api/check",
+  "timestamp" : "2025-06-24T20:48:05.700047200",
+  "details" : "Method checkRedisKey called",
+  "responsePayload" : {
+    "headers" : { },
+    "body" : "No files found for user: 1234",
+    "statusCode" : "BAD_REQUEST",
+    "statusCodeValue" : 400
+  }
+}
+
