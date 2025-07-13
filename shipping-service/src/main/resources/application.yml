@@ -1,0 +1,31 @@
+server:
+  address: 0.0.0.0
+  port: 9292
+
+spring:
+  application:
+    name: shipping-service
+
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: javatechie
+      username: admin
+      password: secret
+      authentication-database: admin
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: shipping-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "*"
+
+shipping:
+  event:
+    topicName: order-events

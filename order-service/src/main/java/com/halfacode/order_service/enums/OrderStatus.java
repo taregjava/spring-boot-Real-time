@@ -1,2 +1,8 @@
-package com.halfacode.order_service.enums;public class OrderStatus {
+package com.halfacode.order_service.enums;
+
+public enum OrderStatus {
+    CREATED,
+    CONFIRMED,
+    SHIPPED,
+    DELIVERED;
 }

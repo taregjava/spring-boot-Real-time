@@ -1,0 +1,42 @@
+server:
+  address: 0.0.0.0
+  port: 9191
+
+spring:
+  application:
+    name: order-service
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  data:
+    mongodb:
+      host: host.docker.internal
+      port: 27017
+      database: halfacode
+      username: admin
+      password: secret
+      authentication-database: admin
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    admin:
+      fail-fast: false
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      batch-size: 16384
+      linger-ms: 1
+      buffer-memory: 33554432
+    properties:
+      security.protocol: PLAINTEXT
+    template:
+      default-topic: order-events
+
+order:
+  event:
+    topicName: order-events
+    createTopic: true

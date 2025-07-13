@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.halfacode.spring_real_time_learning.SpringRealTimeLearningApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.851 s -- in com.halfacode.spring_real_time_learning.SpringRealTimeLearningApplicationTests
