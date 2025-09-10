@@ -1,0 +1,38 @@
+package com.halfacode.spring_real_time_learning.config;
+
+import com.halfacode.spring_real_time_learning.dto.CustomPage;
+import com.halfacode.spring_real_time_learning.dto.ProductDTO;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+//@Configuration
+public class RedisConfig {
+
+  /*  @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(new StringRedisSerializer());
+
+        // Use Jackson serializer to handle custom objects like TempFileDto
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+
+        return template;
+    }
+*/
+  //@Bean
+  public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+      RedisTemplate<String, Object> template = new RedisTemplate<>();
+      template.setConnectionFactory(connectionFactory);
+      template.setKeySerializer(new StringRedisSerializer());
+      template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+      template.afterPropertiesSet();
+      return template;
+  }
+
+
+}
