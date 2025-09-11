@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: resilience-microservice
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+        circuitbreaker:
+          configs:
+            default:
+              failureRateThreshold: 50
+              slidingWindowSize: 10
+              slidingWindowType: COUNT_BASED
+              minimumNumberOfCalls: 10
+              slowCallRateThreshold: 70
+              slowCallDurationThreshold: 3s
+              waitDurationInOpenState: 10s
+              permittedNumberOfCallsInHalfOpenState: 10
+              automaticTransitionFromOpenToHalfOpenEnabled: true
+          instances:
+            backend-api-create:   # applies to IBackEndFeignClient.create()
+              failureRateThreshold: 50
+              slidingWindowSize: 3
+              slidingWindowType: COUNT_BASED
+              minimumNumberOfCalls: 3
+              slowCallRateThreshold: 70
+              slowCallDurationThreshold: 3s
+              waitDurationInOpenState: 20s
+              permittedNumberOfCallsInHalfOpenState: 3
+              automaticTransitionFromOpenToHalfOpenEnabled: true
+
+            currency-api-getRate:
+              failureRateThreshold: 60
+              slidingWindowSize: 5
+              slidingWindowType: COUNT_BASED
+              minimumNumberOfCalls: 5
+              slowCallRateThreshold: 70
+              slowCallDurationThreshold: 3s
+              waitDurationInOpenState: 15s
+              permittedNumberOfCallsInHalfOpenState: 3
+              automaticTransitionFromOpenToHalfOpenEnabled: true
+
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+
+halfacode:
+  external-service:
+    backend-api:
+      url: http://localhost:8081/api/v1
+    currency-api:
+      url: http://localhost:8081/api/v1
