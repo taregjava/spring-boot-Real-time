@@ -1,4 +1,4 @@
-package com.halfacode.spring_real_time_learning.config;
+package com.halfacode.spring_real_time_learning;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
