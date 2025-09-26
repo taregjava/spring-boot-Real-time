@@ -1,0 +1,10 @@
+<fontFamilies>
+    <fontFamily name="Amiri">
+        <normal><![CDATA[Amiri-Regular.ttf]]></normal>
+        <bold><![CDATA[Amiri-Bold.ttf]]></bold>
+        <italic><![CDATA[Amiri-Italic.ttf]]></italic>
+        <boldItalic><![CDATA[Amiri-BoldItalic.ttf]]></boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+</fontFamilies>

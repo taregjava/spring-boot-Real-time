@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="invoiceReport" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <!-- Parameters -->
+    <parameter name="customerName_en" class="java.lang.String"/>
+    <parameter name="customerName_ar" class="java.lang.String"/>
+    <parameter name="itemName_en" class="java.lang.String"/>
+    <parameter name="itemName_ar" class="java.lang.String"/>
+    <parameter name="amount" class="java.lang.Double"/>
+    <parameter name="invoiceDate" class="java.lang.String"/>
+
+    <!-- Fonts -->
+    <style name="defaultStyle" fontName="Arial" pdfFontName="Helvetica" fontSize="12"/>
+    <style name="arabicStyle" fontName="Amiri" pdfFontName="Amiri" pdfEncoding="Identity-H" pdfEmbedded="true" fontSize="12"/>
+
+    <detail>
+        <band height="200">
+
+            <!-- Customer EN -->
+            <staticText>
+                <reportElement x="20" y="10" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Invoice (EN):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="10" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <textFieldExpression><![CDATA[$P{customerName_en}]]></textFieldExpression>
+            </textField>
+
+            <!-- Customer AR -->
+            <staticText>
+                <reportElement x="20" y="40" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Invoice (AR):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="40" width="200" height="20"/>
+                <textElement style="arabicStyle" textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$P{customerName_ar}]]></textFieldExpression>
+            </textField>
+
+            <!-- Item EN -->
+            <staticText>
+                <reportElement x="20" y="70" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Item (EN):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="70" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <textFieldExpression><![CDATA[$P{itemName_en}]]></textFieldExpression>
+            </textField>
+
+            <!-- Item AR -->
+            <staticText>
+                <reportElement x="20" y="100" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Item (AR):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="100" width="200" height="20"/>
+                <textElement style="arabicStyle" textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$P{itemName_ar}]]></textFieldExpression>
+            </textField>
+
+            <!-- Amount -->
+            <staticText>
+                <reportElement x="20" y="130" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Amount:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="130" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
+            </textField>
+
+            <!-- Date -->
+            <staticText>
+                <reportElement x="20" y="160" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <text><![CDATA[Date:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="230" y="160" width="200" height="20"/>
+                <textElement style="defaultStyle"/>
+                <textFieldExpression><![CDATA[$P{invoiceDate}]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+</jasperReport>

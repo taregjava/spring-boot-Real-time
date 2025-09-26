@@ -1,0 +1,49 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="invoiceReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="599e480d-4c88-4303-b664-070dc76d6aec">
+	<parameter name="customerName_en" class="java.lang.String"/>
+	<parameter name="customerName_ar" class="java.lang.String"/>
+	<parameter name="itemName_en" class="java.lang.String"/>
+	<parameter name="itemName_ar" class="java.lang.String"/>
+	<parameter name="amount" class="java.lang.Double"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<detail>
+		<band height="200">
+			<element kind="staticText" uuid="780532b3-f378-44c6-a818-da82eb93b3e2" x="20" y="10" width="200" height="20">
+				<text><![CDATA[Invoice (EN):]]></text>
+			</element>
+			<element kind="textField" uuid="7fa7bf6d-3369-4b46-8db0-b923ab49a329" x="230" y="10" width="200" height="20">
+				<expression><![CDATA[$P{customerName_en}]]></expression>
+			</element>
+			<element kind="staticText" uuid="2e77f4c5-8579-475a-9f35-ed27f27591ed" x="20" y="40" width="200" height="20">
+				<text><![CDATA[Invoice (AR):]]></text>
+			</element>
+			<element kind="textField" uuid="f20e22ad-50e8-4e46-a2d8-093dd8ac1a7a" x="230" y="40" width="200" height="20">
+				<expression><![CDATA[$P{customerName_ar}]]></expression>
+			</element>
+			<element kind="staticText" uuid="2b43cf31-1ec6-4a1d-bec4-2178da2b0e27" x="20" y="70" width="200" height="20">
+				<text><![CDATA[Item (EN):]]></text>
+			</element>
+			<element kind="textField" uuid="aa08dab9-bfbc-4706-9f77-f54ce6292770" x="230" y="70" width="200" height="20">
+				<expression><![CDATA[$P{itemName_en}]]></expression>
+			</element>
+			<element kind="staticText" uuid="12ab4e06-60b3-435f-a6f5-68f95d5aac14" x="20" y="100" width="200" height="20">
+				<text><![CDATA[Item (AR):]]></text>
+			</element>
+			<element kind="textField" uuid="d7cc3bff-42f4-4c96-8431-2ef7b63f309b" x="230" y="100" width="200" height="20">
+				<expression><![CDATA[$P{itemName_ar}]]></expression>
+			</element>
+			<element kind="staticText" uuid="30ac04c4-619a-45c6-b2f2-29fcdffc01bf" x="20" y="130" width="200" height="20">
+				<text><![CDATA[Amount:]]></text>
+			</element>
+			<element kind="textField" uuid="4da173f7-3ecf-403c-9e7d-7fd34a3fad8c" x="230" y="130" width="200" height="20">
+				<expression><![CDATA[$P{amount}]]></expression>
+			</element>
+			<element kind="staticText" uuid="7dc15012-86e5-4e36-ab09-63fc4ff1e1e7" x="20" y="160" width="200" height="20">
+				<text><![CDATA[Date:]]></text>
+			</element>
+			<element kind="textField" uuid="0aaecd35-32d5-468c-bd53-11b2df8003f5" x="230" y="160" width="200" height="20">
+				<expression><![CDATA[$P{invoiceDate}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>
