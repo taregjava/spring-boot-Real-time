@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.2
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_DB: dev-file
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak/realm-demo.json:/opt/keycloak/data/import/realm-demo.json:ro
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - keycloak
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8081:8080"

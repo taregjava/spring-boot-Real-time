@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: spring-real-time-learning
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # issuer-uri should match Keycloak realm issuer
+          issuer-uri: http://keycloak:8080/realms/demo
+
+server:
+  port: 8080
