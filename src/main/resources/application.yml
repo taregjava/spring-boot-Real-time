@@ -1,13 +1,23 @@
+# src/main/resources/application.yml
+
 spring:
   application:
     name: spring-real-time-learning
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          # issuer-uri should match Keycloak realm issuer
-          issuer-uri: http://keycloak:8080/realms/demo
-
 server:
-  port: 8080
+  port: 8082 # Or 8082 if 8081 is still in use
+
+# Inside src/main/resources/application-docker.yml
+camunda.client:
+  zeebe:
+    address: http://zeebe:26500 # Use service name "zeebe"
+    auth.mode: none
+    gateway-security.enabled: false
+
+  operate:
+    baseUrl: http://operate:8080 # Use service name "operate" and its internal port
+    auth.mode: none
+
+  tasklist:
+    baseUrl: http://tasklist:8080 # Use service name "tasklist" and its internal port
+    auth.mode: none
