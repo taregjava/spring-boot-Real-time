@@ -1,0 +1,28 @@
+defaultEnv: dev   # used if no env is passed from CLI
+
+common:
+  clientId: "rmp-client"
+  username: "test.user"
+  kcRealm: "rmp"
+  baseUrlKc: "https://dev-sso.alriyadh.gov.sa"
+  # you can also put shared base URLs if you want
+  # apiRoot: "https://api.municipality.sa"
+
+environments:
+  local:
+    baseUrlKc: "https://dev-sso.alriyadh.gov.sa"
+    baseUrlSip: "https://dev-sip-core.alriyadh.gov.sa"
+    clientSecret: "local-secret"
+    password: "LocalP@ssw0rd!"
+
+  dev:
+    kcBaseUrl: "https://kc-dev.municipality.sa"
+    apiBaseUrl: "https://dev.api.municipality.sa"
+    clientSecret: "dev-secret"
+    password: "DevP@ssw0rd!"
+
+  stg:
+    kcBaseUrl: "https://kc-stg.municipality.sa"
+    apiBaseUrl: "https://stg.api.municipality.sa"
+    clientSecret: "stg-secret"
+    password: "StgP@ssw0rd!"

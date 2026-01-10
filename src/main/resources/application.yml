@@ -6,8 +6,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          # issuer-uri should match Keycloak realm issuer
-          issuer-uri: http://keycloak:8080/realms/demo
+          issuer-uri: http://keycloak:8080/realms/demo  # Keycloak hostname inside Compose network
 
 server:
   port: 8080
+  address: 0.0.0.0   # required for Docker container

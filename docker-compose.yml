@@ -18,9 +18,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: spring-app
     depends_on:
       - keycloak
+    volumes:
+      - .:/app                 # live reload source code
+      - ~/.m2:/root/.m2        # share Maven repo
     environment:
       SPRING_PROFILES_ACTIVE: docker
     ports:
-      - "8081:8080"
+      - "8081:8080"            # access Spring Boot at localhost:8081
+      - "5005:5005"            # optional: remote debug

@@ -1,5 +1,6 @@
 package com.halfacode.spring_real_time_learning.model;
 
+import com.halfacode.spring_real_time_learning.entity.Contract;
 import jakarta.persistence.*;
 import lombok.*;
 

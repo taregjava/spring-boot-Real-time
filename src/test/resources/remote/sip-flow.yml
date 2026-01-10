@@ -1,0 +1,68 @@
+name: "Site preparation full process"
+env: "dev"   # optional: override per-scenario; can be omitted
+
+variables:
+  baseUrlKc: "https://dev-sso.alriyadh.gov.sa"
+  baseUrlSip: "https://dev-sip-core.alriyadh.gov.sa"
+  municipalityCode: "101"
+  purpose: "AUTOMATED_TEST"
+
+steps:
+  - name: "Authenticate via Keycloak"
+    method: POST
+    path: "${baseUrlKc}/realms/external-users/protocol/openid-connect/token"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    formParams:
+      grant_type: "password"
+      client_id: "RM-WebUser"
+      client_secret: "NMqiuY2zY7RGSAwe0yVMuGpWVkFvksZd"
+      username: "shhamdy@alriyadh.gov.sa"
+      password: "11111"
+    extract:
+      token: "$.access_token"
+    expect:
+      status: 200
+
+  - name: "Create Engineering Office Contract"
+    method: POST
+    path: "${baseUrlSip}/engineering-office/api/contracts"
+    headers:
+      Authorization: "Bearer ${token}"
+      Content-Type: "application/json"
+    body: |
+      {
+        "mainServiceCode": 2,
+        "subServiceCode": 138,
+        "birthDate": "05/04/1403",
+        "beneficiaryName": "منصور محمد بن سلطان بن سفران",
+        "beneficiaryMobileNumber": "0502000488",
+        "beneficiarydocumentType": 1,
+        "beneficiaryIdNumber": "1074976943",
+        "beneficiaryemail": "mansor1234@gmail.com",
+        "ownerId": "",
+        "beneficiaryIdType": 1,
+        "beneficiaryFirstName": "Jane",
+        "beneficiaryFatherName": "Doe",
+        "beneficiaryGrandName": "Smith",
+        "beneficiaryFamilyName": "Johnson",
+        "beneficiaryBirthDate": "05/04/1403",
+        "applicantIdNumber": "1074976943",
+        "applicantTypeCode": "1",
+        "applicantName": "منصور محمد بن سلطان بن سفران",
+        "applicantMobileNumber": "0502000488",
+        "applicantEmail": "mansor1234@gmail.com",
+        "webUserCode": "123245",
+        "applicantFirstName": "Joe",
+        "applicantFatherName": "Dose",
+        "applicantGrandName": "Smith",
+        "applicantFamilyName": "Johnathon",
+        "engineeringOfficeNumber": 1,
+        "applicantBirthDate": "05/04/1403"
+      }
+    extract:
+      contractNumber: $.contractNumber,
+      ownerIdNumber: $.ownerIdNumber,
+      ownerIdType: $.ownerIdType
+    expect:
+      status: 201

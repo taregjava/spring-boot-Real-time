@@ -1,28 +1,22 @@
-# ============================
-# Stage 1: Build the app
-# ============================
-FROM maven:3.9-eclipse-temurin-21 AS builder
+# Use official JDK image
+FROM eclipse-temurin:21-jdk
+
+# Set working directory
 WORKDIR /app
 
-# Copy pom.xml first (for dependency caching)
+# Copy Maven files to cache dependencies
 COPY pom.xml .
-RUN --mount=type=cache,target=/root/.m2 mvn -B dependency:go-offline
+RUN apt-get update && apt-get install -y maven
+RUN mvn -B dependency:go-offline
 
-# Copy the source and build
+# Copy source code
 COPY src ./src
-RUN --mount=type=cache,target=/root/.m2 mvn -B clean package -DskipTests
 
-# ============================
-# Stage 2: Run the app
-# ============================
-FROM eclipse-temurin:21-jre-jammy
-WORKDIR /app
+# Expose ports
+EXPOSE 8080 5005
 
-# Copy the built JAR
-COPY --from=builder /app/target/spring-real-time-learning-0.0.1-SNAPSHOT.jar app.jar
+# Enable JVM remote debugging
+ENV JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
 
-# Expose port
-EXPOSE 8080
-
-# Run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run Spring Boot in dev mode (live reload)
+CMD ["mvn", "spring-boot:run", "-Dmaven.test.skip=true"]

@@ -1,0 +1,150 @@
+name: "Site preparation full process"
+env: "dev"   # optional: override per-scenario; can be omitted
+
+variables:
+  #  baseUrlKc: "https://keycloak-dev.hel.fi/auth"
+  municipalityCode: "101"
+  purpose: "AUTOMATED_TEST"
+
+steps:
+  - name: "Authenticate via Keycloak"
+    method: POST
+    path: "${baseUrlKc}/realms/external-users/protocol/openid-connect/token"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    formParams:
+      grant_type: "password"
+      client_id: "RM-WebUser"
+      client_secret: "NMqiuY2zY7RGSAwe0yVMuGpWVkFvksZd"
+      username: "shhamdy@alriyadh.gov.sa"
+      password: "11111"
+    extract:
+      token: "$.access_token"
+    expect:
+      status: 200
+
+  - name: "Create surplus request"
+    method: POST
+    path: "${apiBaseUrl}/surplus/api/requests"
+    headers:
+      Authorization: "Bearer ${token}"
+      Content-Type: "application/json"
+    body: |
+      {
+        "municipalityCode": "${municipalityCode}",
+        "purpose": "${purpose}",
+        "landArea": 1200
+      }
+    extract:
+      requestId: "$.id"
+    expect:
+      status: 201
+
+  - name: "Submit request"
+    method: POST
+    path: "${apiBaseUrl}/surplus/api/requests/${requestId}/submit"
+    headers:
+      Authorization: "Bearer ${token}"
+    expect:
+      status: 200
+
+  - name: "Authenticate via Keycloak"
+    method: POST
+    path: "${kcTokenUrl}"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    formParams:
+      grant_type: "password"
+      client_id: "${clientId}"
+      client_secret: "${clientSecret}"
+      username: "${username}"
+      password: "${password}"
+    extract:
+      token: "$.access_token"
+    expect:
+      status: 200
+
+  - name: "Create surplus request"
+    method: POST
+    path: "${apiUrl}/requests"
+    headers:
+      Authorization: "Bearer ${token}"
+      Content-Type: "application/json"
+    body: |
+      {
+        "municipalityCode": "101",
+        "purpose": "AUTOMATED_TEST",
+        "landArea": 1200
+      }
+    extract:
+      requestId: "$.id"
+    expect:
+      status: 201
+
+  - name: "Submit request"
+    method: POST
+    path: "${apiUrl}/requests/${requestId}/submit"
+    headers:
+      Authorization: "Bearer ${token}"
+    expect:
+      status: 200
+
+  - name: "Login and get token"
+    method: POST
+    path: "/auth/realms/rmp/protocol/openid-connect/token"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    formParams:
+      grant_type: "password"
+      client_id: "rmp-portal"
+      username: "test.user"
+      password: "P@ssw0rd!"
+    extract:
+      token: "$.access_token"
+    expect:
+      status: 200
+
+  - name: "Create surplus request"
+    method: POST
+    path: "/surplus/api/requests"
+    headers:
+      Authorization: "Bearer ${token}"
+      Content-Type: "application/json"
+    body: |
+      {
+        "beneficiaryId": "BEN-${randomUuid}",
+        "municipalityCode": "101",
+        "landArea": 1500,
+        "purpose": "TEST_AUTOMATION"
+      }
+    extract:
+      requestId: "$.id"
+    expect:
+      status: 201
+      json:
+        "$.id": "notNull"
+        "$.status": "DRAFT"
+
+  - name: "Submit request"
+    method: POST
+    path: "/surplus/api/requests/${requestId}/submit"
+    headers:
+      Authorization: "Bearer ${token}"
+    expect:
+      status: 200
+
+  - name: "Wait until process completed"
+    method: GET
+    path: "/surplus/api/requests/${requestId}"
+    headers:
+      Authorization: "Bearer ${token}"
+    repeat:
+      timeoutSeconds: 180
+      intervalSeconds: 5
+      until:
+        json:
+          "$.processStatus": "COMPLETED"
+    expect:
+      status: 200
+      json:
+        "$.processStatus": "COMPLETED"
