@@ -69,6 +69,10 @@ Each branch represents a **real implementation** of a specific technology common
 * `feature/jenkins-ci-cd-*` – Jenkins CI/CD pipelines
 * `feature/http-client-refactor` – HTTP client refactoring
 
+### 🕘 Auditing & History
+- `feature/hibernate-envers-mysql-history` – Track entity changes using Hibernate Envers with h2
+
+
 ---
 
 ## 🚀 How to Run Any Example
